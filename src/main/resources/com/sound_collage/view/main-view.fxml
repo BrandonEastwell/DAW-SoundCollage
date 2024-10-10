@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1297.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sound_collage.controllers.MainController">
+    <SplitPane fx:id="fileSplitPane" layoutX="36.0" layoutY="248.0" orientation="VERTICAL" prefHeight="502.0" prefWidth="289.0" />
+    <VBox layoutX="374.0" layoutY="32.0" prefHeight="736.0" prefWidth="883.0">
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <ProgressBar fx:id="progressbar" prefHeight="18.0" prefWidth="325.0" progress="0.0" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                <padding>
+                    <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                </padding>
+                <Button fx:id="mainPlayBtn" mnemonicParsing="false" prefWidth="92.0" text="► Play">
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="rewindBtn" mnemonicParsing="false" text="◄◄">
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="exportBtn" mnemonicParsing="false" onAction="#exportBuildFile" text="Export">
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="rebuildBtn" mnemonicParsing="false" text="Rebuild">
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="reverseSongBtn" mnemonicParsing="false" onAction="#handleReverseSong" text="Reverse Song">
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="clearBtn" layoutX="583.0" layoutY="53.0" mnemonicParsing="false" onAction="#clear" text="Clear Build">
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                    </HBox.margin>
+                </Button>
+            </HBox>
+        </VBox>
+        <HBox alignment="BASELINE_LEFT" layoutX="10.0" layoutY="100.0" prefHeight="80.0" prefWidth="917.0">
+            <VBox>
+                <Label alignment="CENTER" prefHeight="26.0" prefWidth="218.0" text="Tempo" />
+                <Slider fx:id="tempoSlider" max="2.0" maxWidth="483.0" min="0.5" prefHeight="38.0" prefWidth="238.0" showTickLabels="true" showTickMarks="true" value="1.0" />
+            </VBox>
+        </HBox>
+        <HBox layoutX="10.0" layoutY="110.0" prefHeight="99.0" prefWidth="605.0">
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <Canvas fx:id="waveCanvasMain" height="80.0" width="897.0" />
+        </HBox>
+        <HBox minHeight="50.0" prefHeight="147.0" prefWidth="917.0">
+            <VBox alignment="CENTER" prefHeight="72.0" prefWidth="457.0">
+                <Label fx:id="songLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="313.0" text="Song 1" />
+                <Button fx:id="playBtnSong1" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#playSong" prefHeight="21.0" prefWidth="57.0" text="► Play" textAlignment="CENTER">
+                    <VBox.margin>
+                        <Insets left="20.0" />
+                    </VBox.margin>
+                </Button>
+            </VBox>
+            <VBox alignment="CENTER" minHeight="64.0" prefHeight="64.0" prefWidth="387.0">
+                <Label fx:id="songLabel2" alignment="CENTER" prefHeight="60.0" prefWidth="342.0" text="Song 2" />
+                <Button fx:id="playBtnSong2" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#playSong" prefHeight="25.0" prefWidth="58.0" text="► Play">
+                    <VBox.margin>
+                        <Insets left="25.0" />
+                    </VBox.margin>
+                </Button>
+            </VBox>
+        </HBox>
+        <HBox layoutX="10.0" layoutY="210.0" prefHeight="290.0" prefWidth="883.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <HBox minWidth="414.0" prefHeight="224.0" prefWidth="414.0">
+                <VBox prefHeight="200.0" prefWidth="100.0">
+                    <Label prefHeight="28.0" prefWidth="61.0" text="Volume" />
+                    <Label prefHeight="64.0" prefWidth="96.0" text="Pitch" /> <!-- Dynamic Label for Song 1 -->
+                </VBox>
+                <VBox minWidth="200.0" prefHeight="200.0" prefWidth="100.0">
+                    <Slider fx:id="songVolumeSlider1" prefWidth="117.0" showTickLabels="true" showTickMarks="true" />
+                    <Slider fx:id="pitchSlider1" max="2786.314" min="-1586.314" minorTickCount="0" prefHeight="47.0" prefWidth="200.0" value="100.0" />
+                    <VBox layoutX="10.0" layoutY="300.0">
+                        <Label text="Song 1 Equalizer" />
+                        <HBox>
+                            <VBox>
+                                <Label text="Low" />
+                                <Slider fx:id="lowSlider1" max="1" min="0" value="0.5" />
+                            </VBox>
+                            <VBox>
+                                <Label text="Mid" />
+                                <Slider fx:id="midSlider1" max="1" min="0" value="0.5" />
+                            </VBox>
+                            <VBox>
+                                <Label text="High" />
+                                <Slider fx:id="highSlider1" max="1" min="0" value="0.5" />
+                            </VBox>
+                        </HBox>
+                    </VBox>
+                    <VBox prefHeight="80.0" prefWidth="291.0">
+                        <Canvas fx:id="waveCanvas1" height="25.0" width="131.0" />
+                    </VBox>
+                </VBox>
+            </HBox>
+           <HBox minHeight="200.0" minWidth="462.0" prefWidth="462.0">
+               <VBox prefHeight="228.0" prefWidth="112.0">
+                   <Label prefHeight="37.0" prefWidth="75.0" text="Volume" />
+                   <Label prefHeight="52.0" prefWidth="92.0" text="Pitch" />
+               </VBox>
+               <VBox minHeight="400.0" minWidth="200.0" prefHeight="400.0" prefWidth="193.0">
+                   <Slider fx:id="songVolumeSlider2" showTickLabels="true" showTickMarks="true" />
+                   <Slider fx:id="pitchSlider2" max="2786.314" min="-1586.314" prefHeight="47.0" prefWidth="200.0" />
+                   <VBox layoutX="300.0" layoutY="300.0">
+                       <Label text="Song 2 Equalizer" />
+                       <HBox>
+                           <VBox>
+                               <Label text="Low" />
+                               <Slider fx:id="lowSlider2" max="1" min="0" value="0.5" />
+                           </VBox>
+                           <VBox>
+                               <Label text="Mid" />
+                               <Slider fx:id="midSlider2" max="1" min="0" value="0.5" />
+                           </VBox>
+                           <VBox>
+                               <Label text="High" />
+                               <Slider fx:id="highSlider2" max="1" min="0" value="0.5" />
+                           </VBox>
+                       </HBox>
+                   </VBox>
+                   <VBox prefHeight="80.0" prefWidth="291.0">
+                       <Canvas fx:id="waveCanvas2" height="25.0" width="131.0" />
+                   </VBox>
+               </VBox>
+           </HBox>
+        </HBox>
+    </VBox>
+    <Label layoutX="36.0" layoutY="45.0" text="Sound Collage">
+        <font>
+            <Font name="System Bold" size="33.0" />
+        </font>
+    </Label>
+    <Label layoutX="36.0" layoutY="176.0" text="Select files" />
+    <Separator layoutX="340.0" layoutY="45.0" orientation="VERTICAL" prefHeight="719.0" prefWidth="0.0" />
+    <Button fx:id="buildBtn" layoutX="38.0" layoutY="209.0" mnemonicParsing="false" onAction="#buildProject" text="Build" />
+    <Label fx:id="header" alignment="CENTER" layoutX="723.0" layoutY="14.0" prefHeight="17.0" prefWidth="220.0" textAlignment="CENTER" />
+    <Button fx:id="randomBtn" layoutX="92.0" layoutY="209.0" mnemonicParsing="false" onAction="#buildRandomProject" text="Random" />
+</Pane>
